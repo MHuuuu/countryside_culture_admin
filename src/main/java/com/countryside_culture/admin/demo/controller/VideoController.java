@@ -88,7 +88,9 @@ public class VideoController {
     public Result submitVideo(
             @RequestBody Video video,
             @RequestHeader("X-Token") String token) {
-        videoService.submit(video);
+
+        Integer id = JsonWebTokenUtils.getAppUID(token);
+        videoService.submit(id, video);
         return ResultUtil.success();
     }
 

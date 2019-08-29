@@ -48,10 +48,11 @@ public class VideoServiceImpl implements VideoService{
 
     @Override
     @Transactional
-    public void submit(Video video) {
+    public void submit(int id,Video video) {
         video.setPublishTime(DateUtil.getCurrentDate());
         // if (news.getExamStatus()==0 || news.getExamStatus()==3)
         video.setStatus(1);
+        video.setAuthorId(id);
         videoRepository.save(video);
     }
 

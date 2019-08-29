@@ -99,8 +99,8 @@ public class PublicController {
         String location = VIDEO_PATH  + fileInfo.getIdentifier() + "/" + filename;
         fileInfo.setLocation(location);
         fileInfoService.addFileInfo(fileInfo);
-
-        return ResultUtil.success("合并成功");
+        // "合并成功"
+        return ResultUtil.success(fileInfo.getLocation());
     }
 }
 

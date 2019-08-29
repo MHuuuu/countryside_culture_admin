@@ -10,7 +10,7 @@ public interface VideoService {
 
     public Video getDetail(int id);
 
-    public void submit(Video video);
+    public void submit(int id ,Video video);
 
     // public void draft(Video video);
 
