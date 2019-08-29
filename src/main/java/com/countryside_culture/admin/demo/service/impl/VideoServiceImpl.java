@@ -1,6 +1,8 @@
 package com.countryside_culture.admin.demo.service.impl;
 
+import com.countryside_culture.admin.demo.dao.AdminUserRepository;
 import com.countryside_culture.admin.demo.dao.VideoRepository;
+import com.countryside_culture.admin.demo.entity.AdminUser;
 import com.countryside_culture.admin.demo.entity.Video;
 import com.countryside_culture.admin.demo.service.VideoService;
 import com.countryside_culture.admin.demo.util.DateUtil;
@@ -17,6 +19,8 @@ import java.util.Optional;
 public class VideoServiceImpl implements VideoService{
     @Resource
     private VideoRepository videoRepository;
+    @Resource
+    private AdminUserRepository adminUserRepository;
 
     @Override
     @Transactional
@@ -49,7 +53,7 @@ public class VideoServiceImpl implements VideoService{
     @Override
     @Transactional
     public void submit(int id,Video video) {
-        video.setPublishTime(DateUtil.getCurrentDate());
+        video.setLastestTime(DateUtil.getCurrentDate());
         // if (news.getExamStatus()==0 || news.getExamStatus()==3)
         video.setStatus(1);
         video.setAuthorId(id);
@@ -58,8 +62,14 @@ public class VideoServiceImpl implements VideoService{
 
     @Override
     @Transactional
-    public void auditArticle(int id, int authorId,String remark) {
+    public void auditVideo(int id, int auditorId,String remark) {
         Video video=getDetail(id);
+        Optional<AdminUser> optional= adminUserRepository.findById(auditorId);
+        AdminUser user=optional.get();
+
+        video.setAuditorId(auditorId);
+        video.setAuditor(user.getNickname());
+        video.setLastestTime(DateUtil.getCurrentDate());
         boolean isPass= null == remark;
         if (isPass){
             video.setStatus(Video.Signal.PASS.ordinal());

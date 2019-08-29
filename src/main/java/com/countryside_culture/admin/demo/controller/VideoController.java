@@ -67,7 +67,7 @@ public class VideoController {
             @RequestParam(required = false) String remark,
             @RequestHeader("X-Token") String token) {
         Integer authorId = JsonWebTokenUtils.getAppUID(token);
-        // videoService.auditVideo(id,authorId, remark);
+        videoService.auditVideo(id,authorId, remark);
         return ResultUtil.success();
     }
 

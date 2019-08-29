@@ -14,5 +14,5 @@ public interface VideoService {
 
     // public void draft(Video video);
 
-    public void auditArticle(int id, int authorId,String remark);
+    public void auditVideo(int id, int auditorId,String remark);
 }
