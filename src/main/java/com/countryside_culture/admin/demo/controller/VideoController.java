@@ -3,6 +3,7 @@ package com.countryside_culture.admin.demo.controller;
 import com.countryside_culture.admin.demo.entity.Video;
 import com.countryside_culture.admin.demo.entity.Result;
 import com.countryside_culture.admin.demo.entity.Video;
+import com.countryside_culture.admin.demo.entity.VideoCustom;
 import com.countryside_culture.admin.demo.service.AdminUserService;
 import com.countryside_culture.admin.demo.service.VideoService;
 import com.countryside_culture.admin.demo.util.JsonWebTokenUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //施工中
@@ -30,11 +32,18 @@ public class VideoController {
             @RequestHeader("X-Token") String token) {
         Integer id = JsonWebTokenUtils.getAppUID(token);
         if (id != null) {
+
+
             //adminUserService.getUserInfo(id);
             Page<Video> videoList = videoService.getVideoList(id, page, limit);
             Map<String, Object> map = new HashMap<>();
             map.put("total", videoList.getTotalElements());
             map.put("items", videoList.getContent());
+
+            /*List<VideoCustom> videoList = videoService.getVideoList(id, page, limit);
+            Map<String, Object> map = new HashMap<>();
+            map.put("total", videoList.size());
+            map.put("items", videoList);*/
             return ResultUtil.success(map);
         }
         return null;
@@ -56,6 +65,7 @@ public class VideoController {
 
     /**
      * 审核功能待定
+     *
      * @param id
      * @param remark
      * @param token
@@ -67,7 +77,7 @@ public class VideoController {
             @RequestParam(required = false) String remark,
             @RequestHeader("X-Token") String token) {
         Integer authorId = JsonWebTokenUtils.getAppUID(token);
-        videoService.auditVideo(id,authorId, remark);
+        videoService.auditVideo(id, authorId, remark);
         return ResultUtil.success();
     }
 

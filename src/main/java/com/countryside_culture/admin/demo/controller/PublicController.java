@@ -42,6 +42,9 @@ public class PublicController {
     private String IMG_PATH;
     @Value("${prop.video-path}")
     private String VIDEO_PATH;
+    @Value("${prop.online-url}")
+    private String ONLINE_URL;
+
 
     // 图片视频上传
     @PostMapping(value = "/uploadImg")
@@ -50,7 +53,7 @@ public class PublicController {
         // System.out.println("z:pPath"+pPath);
         UploadFileEntity uploadFileEntity=UploadKit.getFile(request,IMG_PATH,true);
         Map<String,String> map=new HashMap<>();
-        map.put("url",PARENT_PATH+uploadFileEntity.getServerPath());
+        map.put("url",ONLINE_URL+uploadFileEntity.getServerPath());
         return ResultUtil.success(map);
     }
 

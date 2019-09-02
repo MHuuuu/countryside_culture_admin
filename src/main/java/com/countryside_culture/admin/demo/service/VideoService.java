@@ -1,7 +1,10 @@
 package com.countryside_culture.admin.demo.service;
 
 import com.countryside_culture.admin.demo.entity.Video;
+import com.countryside_culture.admin.demo.entity.VideoCustom;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public interface VideoService {
     public Page<Video> getVideoList(int id, int page, int limit);

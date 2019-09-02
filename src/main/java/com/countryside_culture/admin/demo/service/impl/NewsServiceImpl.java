@@ -71,7 +71,14 @@ public class NewsServiceImpl implements NewsService {
         }
 
         News news=getDetail(id);
-        boolean isPass= null == statusReason;
+        boolean isPass;
+        if((null == statusReason)){
+            isPass=true;
+        }else if(statusReason.length()==0){
+            isPass=true;
+        }else{
+            isPass=false;
+        }
         if (isPass){
             news.setExamStatus(News.Signal.PASS.ordinal());
         }else {

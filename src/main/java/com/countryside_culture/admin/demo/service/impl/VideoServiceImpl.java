@@ -4,6 +4,7 @@ import com.countryside_culture.admin.demo.dao.AdminUserRepository;
 import com.countryside_culture.admin.demo.dao.VideoRepository;
 import com.countryside_culture.admin.demo.entity.AdminUser;
 import com.countryside_culture.admin.demo.entity.Video;
+import com.countryside_culture.admin.demo.entity.VideoCustom;
 import com.countryside_culture.admin.demo.service.VideoService;
 import com.countryside_culture.admin.demo.util.DateUtil;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class VideoServiceImpl implements VideoService{
@@ -26,8 +27,24 @@ public class VideoServiceImpl implements VideoService{
     @Transactional
     public Page<Video> getVideoList(int id, int page, int limit) {
         Sort sort = new Sort(Sort.Direction.DESC, "id");
-        //默认从第零页开始
         PageRequest pageRequest = PageRequest.of(page - 1, limit, sort);
+
+//        int rows=limit;
+//        int offset=(page-1)*limit;
+        // 弃用findAllByAuthorId
+//        List<Map<String, Object>> map=new ArrayList<>();
+//        List<VideoCustom> list=
+//        return list;
+        /*Video v=new Video();
+        for (Map<String, Object> m:map) {
+            v.setId(Integer.valueOf(m.get("id").toString()));
+            v.setPublishTime(m.get("publishTime").toString());
+            v.setTitle(m.get("title").toString());
+            v.setStatus(Integer.valueOf(m.get("status").toString()));
+            list.add(v);
+        }
+        return list;*/
+
         return videoRepository.findAllByAuthorId(id, pageRequest);
     }
 
@@ -55,6 +72,7 @@ public class VideoServiceImpl implements VideoService{
     public void submit(int id,Video video) {
         video.setLastestTime(DateUtil.getCurrentDate());
         // if (news.getExamStatus()==0 || news.getExamStatus()==3)
+        video.setActor("0");
         video.setStatus(1);
         video.setAuthorId(id);
         videoRepository.save(video);
