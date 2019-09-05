@@ -88,7 +88,6 @@ public class PublicController {
         if (chunkService.checkChunk(chunk.getIdentifier(), chunk.getChunkNumber())) {
             response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
         }
-
         return chunk;
     }
 

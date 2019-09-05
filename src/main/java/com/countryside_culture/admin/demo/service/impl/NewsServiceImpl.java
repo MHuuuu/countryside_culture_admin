@@ -51,6 +51,7 @@ public class NewsServiceImpl implements NewsService {
     @Transactional
     public void submit(News news) {
         news.setPublishTime(DateUtil.getCurrentDate());
+        news.setLastestTime(DateUtil.getCurrentDate());
         // if (news.getExamStatus()==0 || news.getExamStatus()==3)
         news.setExamStatus(1);
         newsRepository.save(news);
@@ -84,10 +85,10 @@ public class NewsServiceImpl implements NewsService {
         }else {
             news.setAuditor(author.getNickname());
             news.setAuditorId(auditorId);
-            news.setLastestTime(DateUtil.getCurrentDate());
             news.setExamStatus(News.Signal.FAIL.ordinal());
             news.setStatusReason(statusReason);
         }
+        news.setLastestTime(DateUtil.getCurrentDate());
         newsRepository.save(news);
     }
 }

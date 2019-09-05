@@ -24,12 +24,14 @@ public class Activity {
     @Column
     private String picture;
     @Column
-    private String hits;
+    private int kind;
+    @Column
+    private int hits;
 
     public Activity() {
     }
 
-    public Activity(String title, String endtime, String content, String eorganizer, String starttime, String status, String picture, String hits) {
+    public Activity(String title, String endtime, String content, String eorganizer, String starttime, String status, String picture, int kind, int hits) {
         this.title = title;
         this.endtime = endtime;
         this.content = content;
@@ -37,6 +39,7 @@ public class Activity {
         this.starttime = starttime;
         this.status = status;
         this.picture = picture;
+        this.kind = kind;
         this.hits = hits;
     }
 
@@ -104,11 +107,19 @@ public class Activity {
         this.picture = picture;
     }
 
-    public String getHits() {
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
+    }
+
+    public int getHits() {
         return hits;
     }
 
-    public void setHits(String hits) {
+    public void setHits(int hits) {
         this.hits = hits;
     }
 }
